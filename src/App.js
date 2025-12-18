@@ -3,6 +3,7 @@ import { useUsers } from './hooks/useUsers';
 import UserList from './components/UserList';
 import SearchBar from './components/SearchBar';
 import { filterUsers } from './utils/filters';
+import UserDetailsModal from './components/UserDetailsModal';
 
 function App() {
   const { users, loading, error } = useUsers();
@@ -28,6 +29,12 @@ function App() {
         error={error}
         onUserClick={handleUserClick}
       />
+      {selectedUser && (
+  <UserDetailsModal
+    user={selectedUser}
+    onClose={() => setSelectedUser(null)}
+  />
+)}
     </div>
   );
 }
