@@ -1,69 +1,62 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const UserForm = ({ onAddUser }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
+  const [isOpen, setIsOpen] = useState(false);
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    const newUser = {
-      id: Date.now(),  // Simple fake ID
+    onAddUser({
+      id: Date.now(),
       ...data,
-      address: { street: '', city: '' },  // Minimal to avoid errors later
+      address: { street: '', city: '' },
       company: { name: '' },
       website: '',
-    };
-    onAddUser(newUser);
+    });
     reset();
+    setIsOpen(false);
   };
 
   return (
-    <div className="bg-gray-100 p-6 rounded-lg mb-8">
-      <h2 className="text-xl font-semibold mb-4">Add New User</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <input
-            {...register('name', { required: 'Name is required' })}
-            placeholder="Name"
-            className="w-full p-3 border border-gray-300 rounded"
-          />
-          {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+    <div className="card mb-6">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-4 flex items-center justify-between text-left"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-lg bg-success/10 flex items-center justify-center">
+            <svg className="w-5 h-5 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+          </div>
+          <span className="font-medium text-ink">Add New User</span>
         </div>
-
-        <div>
-          <input
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^\S+@\S+$/i,
-                message: 'Invalid email format',
-              },
-            })}
-            placeholder="Email"
-            className="w-full p-3 border border-gray-300 rounded"
-          />
-          {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
-        </div>
-
-        <div>
-          <input
-            {...register('phone', { required: 'Phone is required' })}
-            placeholder="Phone"
-            className="w-full p-3 border border-gray-300 rounded"
-          />
-          {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
-        </div>
-
-        <button
-          type="submit"
-          className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600"
-        >
-          Add User
-        </button>
-      </form>
+        <svg className={`w-5 h-5 text-ink-subtle ${isOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      
+      {isOpen && (
+        <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-4 pt-2 border-t border-surface-200">
+          <div className="grid gap-4 sm:grid-cols-3">
+            <div>
+              <input {...register('name', { required: 'Required' })} placeholder="Name" className="input-field" />
+              {errors.name && <p className="text-danger text-xs mt-1">{errors.name.message}</p>}
+            </div>
+            <div>
+              <input {...register('email', { required: 'Required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' } })} placeholder="Email" className="input-field" />
+              {errors.email && <p className="text-danger text-xs mt-1">{errors.email.message}</p>}
+            </div>
+            <div>
+              <input {...register('phone', { required: 'Required' })} placeholder="Phone" className="input-field" />
+              {errors.phone && <p className="text-danger text-xs mt-1">{errors.phone.message}</p>}
+            </div>
+          </div>
+          <div className="mt-4 flex justify-end">
+            <button type="submit" className="btn-success">Add User</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
