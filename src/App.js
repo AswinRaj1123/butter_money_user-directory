@@ -22,12 +22,12 @@ function App() {
   const filteredUsers = filterUsers(displayedUsers, searchTerm);
 
   return (
-    <div className="min-h-screen bg-surface-100 py-8 px-4">
+    <div className="min-h-screen bg-surface-100 py-6 px-3 sm:py-8 sm:px-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <header className="mb-8">
-          <h1 className="text-2xl font-semibold text-ink tracking-tight">User Directory</h1>
-          <p className="text-ink-muted mt-1">Manage and browse all users</p>
+        <header className="mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">User Directory</h1>
+          <p className="text-sm sm:text-base text-ink-muted mt-1">Manage and browse all users</p>
         </header>
 
         {/* Add User Form */}

@@ -37,23 +37,23 @@ const UserForm = ({ onAddUser }) => {
       </button>
       
       {isOpen && (
-        <form onSubmit={handleSubmit(onSubmit)} className="px-4 pb-4 pt-2 border-t border-surface-200">
-          <div className="grid gap-4 sm:grid-cols-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="px-3 sm:px-4 pb-4 pt-2 border-t border-surface-200">
+          <div className="grid gap-3 sm:gap-4 sm:grid-cols-3">
             <div>
-              <input {...register('name', { required: 'Required' })} placeholder="Name" className="input-field" />
+              <input {...register('name', { required: 'Required' })} placeholder="Name" className="input-field text-sm sm:text-base" />
               {errors.name && <p className="text-danger text-xs mt-1">{errors.name.message}</p>}
             </div>
             <div>
-              <input {...register('email', { required: 'Required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' } })} placeholder="Email" className="input-field" />
+              <input {...register('email', { required: 'Required', pattern: { value: /^\S+@\S+$/i, message: 'Invalid email' } })} placeholder="Email" className="input-field text-sm sm:text-base" />
               {errors.email && <p className="text-danger text-xs mt-1">{errors.email.message}</p>}
             </div>
             <div>
-              <input {...register('phone', { required: 'Required' })} placeholder="Phone" className="input-field" />
+              <input {...register('phone', { required: 'Required' })} placeholder="Phone" className="input-field text-sm sm:text-base" />
               {errors.phone && <p className="text-danger text-xs mt-1">{errors.phone.message}</p>}
             </div>
           </div>
           <div className="mt-4 flex justify-end">
-            <button type="submit" className="btn-success">Add User</button>
+            <button type="submit" className="btn-success w-full sm:w-auto">Add User</button>
           </div>
         </form>
       )}
