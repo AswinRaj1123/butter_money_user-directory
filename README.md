@@ -4,6 +4,8 @@ A modern React application for managing and browsing users. Fetches data from an
 
 **Built as a technical assessment for Butter Money.**
 
+**Live Demo:** [https://butter-money-user-directory.vercel.app/](https://butter-money-user-directory.vercel.app/)
+
 ---
 
 ## Setup Steps
