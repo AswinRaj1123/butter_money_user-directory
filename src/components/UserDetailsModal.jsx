@@ -26,14 +26,16 @@ const UserDetailsModal = ({ user, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-ink/40 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
+      className="fixed inset-0 bg-ink/40 flex items-end sm:items-center justify-center z-50"
       onClick={onClose}
     >
       <div
-        className="card shadow-modal w-full max-w-md rounded-b-none sm:rounded-b-xl max-h-[85vh] overflow-auto"
+        className="bg-white shadow-modal w-full sm:max-w-md sm:rounded-xl sm:m-4 max-h-[90vh] sm:max-h-[85vh] overflow-auto rounded-t-2xl"
         onClick={stopPropagation}
       >
-        <header className="p-4 sm:p-6 border-b border-surface-200 sticky top-0 bg-white rounded-t-xl">
+        <header className="p-4 sm:p-6 border-b border-surface-200 sticky top-0 bg-white rounded-t-2xl sm:rounded-t-xl">
+          {/* Mobile drag handle */}
+          <div className="w-10 h-1 bg-surface-300 rounded-full mx-auto mb-4 sm:hidden" />
           <div className="flex items-center gap-3 sm:gap-4">
             <Avatar name={name} size="md" />
             <div className="flex-1 min-w-0">
@@ -50,13 +52,13 @@ const UserDetailsModal = ({ user, onClose }) => {
           </div>
         </header>
 
-        <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+        <div className="p-4 sm:p-6 space-y-4">
           {details.map(({ label, value }) => (
             <DetailRow key={label} label={label} value={value} />
           ))}
         </div>
 
-        <footer className="p-3 sm:p-4 border-t border-surface-200 sticky bottom-0 bg-white">
+        <footer className="p-4 border-t border-surface-200 sticky bottom-0 bg-white pb-6 sm:pb-4">
           <button onClick={onClose} className="btn-secondary w-full">Close</button>
         </footer>
       </div>
