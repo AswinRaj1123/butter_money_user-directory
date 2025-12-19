@@ -1,7 +1,27 @@
+/**
+ * UserDetailsModal Component
+ * 
+ * Displays detailed information about a selected user in a modal overlay.
+ * Responsive design: bottom sheet on mobile, centered modal on desktop.
+ * 
+ * Props:
+ * @param {Object} user - User object with full details
+ * @param {Function} onClose - Callback to close the modal
+ * 
+ * Features:
+ * - Click outside to close
+ * - Mobile: Slides up from bottom with drag handle
+ * - Desktop: Centered with rounded corners
+ * - Sticky header and footer for scrollable content
+ */
+
 import Avatar from './Avatar';
 import Icon from './Icon';
 import { formatAddress, valueOrFallback } from '../utils';
 
+/**
+ * DetailRow - Helper component for displaying label-value pairs
+ */
 const DetailRow = ({ label, value }) => (
   <div className="flex justify-between items-start gap-4">
     <span className="text-xs sm:text-sm text-ink-muted flex-shrink-0">{label}</span>
@@ -10,10 +30,13 @@ const DetailRow = ({ label, value }) => (
 );
 
 const UserDetailsModal = ({ user, onClose }) => {
+  // Don't render if no user selected
   if (!user) return null;
 
+  // Destructure user properties
   const { name, email, phone, address, company, website } = user;
 
+  // Define the details to display in the modal
   const details = [
     { label: 'Email', value: email },
     { label: 'Phone', value: phone },
@@ -22,6 +45,7 @@ const UserDetailsModal = ({ user, onClose }) => {
     { label: 'Website', value: valueOrFallback(website) },
   ];
 
+  // Prevent modal from closing when clicking inside the modal content
   const stopPropagation = (e) => e.stopPropagation();
 
   return (

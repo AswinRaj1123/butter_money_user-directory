@@ -1,3 +1,18 @@
+/**
+ * Icon Component
+ * 
+ * Reusable SVG icon component using Heroicons paths.
+ * Centralizes all icons in one place for consistency.
+ * 
+ * Props:
+ * @param {string} name - Icon name (must match a key in ICONS object)
+ * @param {string} className - CSS classes for sizing and color
+ * @param {number} strokeWidth - SVG stroke width (default: 2)
+ * 
+ * Available icons: sort, search, plus, chevronDown, close, users, alert
+ */
+
+// SVG path data for each icon (from Heroicons)
 const ICONS = {
   sort: 'M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4',
   search: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',

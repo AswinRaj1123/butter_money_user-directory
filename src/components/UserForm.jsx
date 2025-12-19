@@ -1,17 +1,42 @@
+/**
+ * UserForm Component
+ * 
+ * Collapsible form for adding new users to the directory.
+ * Uses react-hook-form for validation and form state management.
+ * 
+ * Props:
+ * @param {Function} onAddUser - Callback with new user data when form is submitted
+ * 
+ * Features:
+ * - Collapsible accordion UI to save space
+ * - Client-side validation (required fields, email format)
+ * - Form resets after successful submission
+ * - Responsive grid layout (stacked on mobile, 3 columns on desktop)
+ */
+
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Icon from './Icon';
 
+// Regex pattern for basic email validation
 const EMAIL_PATTERN = /^\S+@\S+$/i;
 
+/**
+ * Creates a new user object with default empty fields
+ * @param {Object} data - Form data (name, email, phone)
+ * @returns {Object} Complete user object with generated ID
+ */
 const createEmptyUser = (data) => ({
-  id: Date.now(),
+  id: Date.now(), // Simple unique ID using timestamp
   ...data,
   address: { street: '', city: '' },
   company: { name: '' },
   website: '',
 });
 
+/**
+ * FormField - Reusable input field with error display
+ */
 const FormField = ({ name, register, rules, errors, placeholder }) => (
   <div>
     <input
@@ -20,22 +45,32 @@ const FormField = ({ name, register, rules, errors, placeholder }) => (
       className="input-field text-sm sm:text-base"
       aria-label={placeholder}
     />
+    {/* Show validation error message if field has error */}
     {errors[name] && <p className="text-danger text-xs mt-1">{errors[name].message}</p>}
   </div>
 );
 
 const UserForm = ({ onAddUser }) => {
+  // Controls whether the form is expanded or collapsed
   const [isOpen, setIsOpen] = useState(false);
+  
+  // react-hook-form setup
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
+  /**
+   * Handles form submission
+   * Creates new user, resets form, and collapses the accordion
+   */
   const handleFormSubmit = (data) => {
     onAddUser(createEmptyUser(data));
     reset();
     setIsOpen(false);
   };
 
+  // Toggle accordion open/close
   const toggleOpen = () => setIsOpen((prev) => !prev);
 
+  // Form field configuration - makes it easy to add/modify fields
   const fields = [
     { name: 'name', placeholder: 'Name', rules: { required: 'Required' } },
     { name: 'email', placeholder: 'Email', rules: { required: 'Required', pattern: { value: EMAIL_PATTERN, message: 'Invalid email' } } },
